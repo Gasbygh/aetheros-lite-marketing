@@ -14,7 +14,7 @@ const fadeUp = {
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 } as const
 
-const DOWNLOAD_FILE = './downloads/AetherOS-Lite-1.4.0-linux-x64.tar.xz'
+const DOWNLOAD_FILE = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download/v1.4.0/AetherOS-Lite-1.4.0-linux-x64.tar.xz'
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
