@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
   Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
-  FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, type LucideIcon,
+  FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, Plug, type LucideIcon,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -366,6 +366,29 @@ function Performance() {
   )
 }
 
+function Mcp() {
+  return (
+    <section className="px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-4xl text-center">
+        <motion.div {...fadeUp}>
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <Plug className="h-4 w-4" /> MCP servers
+            <span className="rounded-full bg-white/8 px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-zinc-400">Experimental</span>
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            Give Aether AI <span className="gradient-text">real tools.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
+            Connect Model Context Protocol servers (HTTP) — AI-native tools and data sources.
+            Aether AI can query them through the native engine; connections are journaled like
+            everything else.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 function DevSdk() {
   const code = `const aether = window.aether // undefined in a hosted browser tab
 
@@ -655,6 +678,7 @@ export default function App() {
       <Guide />
       <Charter />
       <Byok />
+      <Mcp />
       <DevSdk />
       <Showcase
         eyebrow="Device aware"
