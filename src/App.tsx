@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
   Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
-  FolderTree, Puzzle, Zap, Lock, type LucideIcon,
+  FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, type LucideIcon,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -14,7 +14,10 @@ const fadeUp = {
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 } as const
 
-const DOWNLOAD_FILE = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download/v1.4.0/AetherOS-Lite-1.4.0-linux-x64.tar.xz'
+const RELEASE = 'https://github.com/Gasbygh/aetheros-lite-releases/releases/download/v1.4.0'
+const LINUX_FILE = `${RELEASE}/AetherOS-Lite-1.4.0-linux-x64.tar.xz`
+const WIN_PORTABLE_FILE = `${RELEASE}/AetherOS-Lite-Portable.exe`
+const WIN_INSTALLER_FILE = `${RELEASE}/Aether.OS.Lite.Setup.1.4.0.exe`
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
@@ -41,6 +44,8 @@ function Nav() {
           <a href="#engine" className="transition hover:text-white">Engine</a>
           <a href="#ui" className="transition hover:text-white">Interface</a>
           <a href="#charter" className="transition hover:text-white">Charter AI</a>
+          <a href="#developers" className="transition hover:text-white">Developers</a>
+          <a href="#guide" className="transition hover:text-white">Guide</a>
           <a href="#performance" className="transition hover:text-white">Performance</a>
         </nav>
         <a
@@ -361,19 +366,154 @@ function Performance() {
   )
 }
 
+function DevSdk() {
+  const code = `const aether = window.aether // undefined in a hosted browser tab
+
+if (aether) {
+  aether.platform            // 'win32' | 'linux' | 'darwin'
+  aether.versions            // { electron, chrome, node }
+
+  // native window chrome
+  await aether.window.minimize()
+  await aether.window.toggleMaximize()
+
+  // real device filesystem — no permission re-grants, no quota
+  const folder = await aether.device.pickFolder()
+  const entries = await aether.device.list(folder.path)
+  await aether.device.writeText(\`\${folder.path}/notes.txt\`, 'hello')
+}`
+  const bullets = [
+    'Context-isolated, intent-based IPC — no Node access from app code',
+    'Detects gracefully: same code runs hosted, aether is just undefined',
+    'Real device filesystem: pick a folder, list/read/write/create/delete — no re-prompts',
+    'openExternal(), native window controls, and file:// URLs for media playback',
+  ]
+  return (
+    <section id="developers" className="px-5 py-16 md:py-24">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 md:flex-row md:gap-16">
+        <motion.div {...fadeUp} className="md:w-[42%]">
+          <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <Code2 className="h-4 w-4" /> For developers
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            Build native apps <span className="gradient-text">for Aether.</span>
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
+            The OS interface is a web app running as the primary surface of a stripped-down
+            Chromium shell. <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">window.aether</code>{' '}
+            is injected by the preload bridge — third-party Aether apps get exactly this surface.
+          </p>
+          <ul className="mt-5 space-y-2.5">
+            {bullets.map((b) => (
+              <li key={b} className="flex items-start gap-2.5 text-[14px] text-zinc-300">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                {b}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-2.5 text-[12.5px] text-zinc-500">
+            <code className="rounded-full bg-white/5 px-3 py-1.5 text-emerald-300">npm run electron:dev</code>
+            <code className="rounded-full bg-white/5 px-3 py-1.5 text-emerald-300">npm run dist:win</code>
+            <code className="rounded-full bg-white/5 px-3 py-1.5 text-emerald-300">dist:linux</code>
+            <code className="rounded-full bg-white/5 px-3 py-1.5 text-emerald-300">dist:mac</code>
+          </div>
+        </motion.div>
+        <motion.div {...fadeUp} className="w-full md:w-[58%]">
+          <pre className="glass overflow-x-auto rounded-3xl p-6 text-[12.5px] leading-relaxed text-zinc-300">
+            <code>{code}</code>
+          </pre>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Guide() {
+  const boot = [
+    'Boot screen → click the lock screen to unlock',
+    'Land on the desktop: top bar, wallpaper, dock — everything persists automatically',
+    'Close and reopen anytime: your session restores exactly as you left it',
+  ]
+  const shortcuts: [string, string][] = [
+    ['Spotlight — apps, files, notes, web', 'Ctrl+K'],
+    ['Task switcher (Shift reverses)', 'Alt+Tab'],
+    ['Split screen left / right', 'Ctrl+Alt+←/→'],
+    ['Maximize / restore', 'Ctrl+Alt+↑/↓'],
+    ['Quick task switch', 'Ctrl+Q'],
+  ]
+  return (
+    <section id="guide" className="border-y border-white/5 bg-white/[0.02] px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <motion.div {...fadeUp} className="max-w-3xl">
+          <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <BookOpen className="h-4 w-4" /> Guide
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            Up and running <span className="gradient-text">in a minute.</span>
+          </h2>
+        </motion.div>
+        <div className="mt-10 grid gap-4 md:grid-cols-2">
+          <motion.div {...fadeUp} className="glass rounded-3xl p-6">
+            <div className="font-display text-lg font-semibold">First boot</div>
+            <ul className="mt-4 space-y-2.5">
+              {boot.map((b) => (
+                <li key={b} className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-zinc-300">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+          <motion.div {...fadeUp} className="glass rounded-3xl p-6">
+            <div className="flex items-center gap-2 font-display text-lg font-semibold">
+              <Keyboard className="h-4 w-4 text-emerald-400" /> Keyboard shortcuts
+            </div>
+            <div className="mt-4 space-y-2.5">
+              {shortcuts.map(([label, keys]) => (
+                <div key={label} className="flex items-center justify-between gap-3 text-[13px]">
+                  <span className="text-zinc-300">{label}</span>
+                  <kbd className="whitespace-nowrap rounded-md bg-white/8 px-2 py-1 text-[11.5px] font-medium text-emerald-300">{keys}</kbd>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+        <motion.p {...fadeUp} className="mx-auto mt-8 max-w-2xl text-center text-[12.5px] leading-relaxed text-zinc-500">
+          Files, notes, settings, open windows and browser tabs all persist on this device —
+          no account required. The full walkthrough (mounting a USB stick, Aether AI setup,
+          Performance Mode, and more) ships as <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">HOW-TO-USE.md</code> alongside every release.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
 function DownloadSection() {
-  const cards: { icon: LucideIcon; os: string; status: string; ready: boolean; note: string; web?: boolean }[] = [
+  const cards: {
+    icon: LucideIcon
+    os: string
+    status: string
+    ready: boolean
+    note: string
+    web?: boolean
+    downloads?: { label: string; href: string }[]
+  }[] = [
     {
-      icon: AppWindow, os: 'Windows', status: 'Portable + installer', ready: false,
-      note: 'Portable .exe and NSIS installer — one command builds both: npm run dist:win',
+      icon: AppWindow, os: 'Windows', status: 'Ready now', ready: true,
+      note: 'Portable .exe (no install, no admin) or the NSIS installer if you prefer a Start Menu shortcut.',
+      downloads: [
+        { label: 'Portable .exe · 75 MB', href: WIN_PORTABLE_FILE },
+        { label: 'Installer .exe · 75 MB', href: WIN_INSTALLER_FILE },
+      ],
     },
     {
       icon: Terminal, os: 'Linux', status: 'Ready now', ready: true,
       note: 'Portable build — extract anywhere (even a USB stick) with tar -xJf and run. No install, no root.',
+      downloads: [{ label: '.tar.xz · 70 MB', href: LINUX_FILE }],
     },
     {
       icon: Apple, os: 'macOS', status: 'dmg + zip', ready: false,
-      note: 'Builds on any Mac with npm run dist:mac — Apple Silicon and Intel.',
+      note: 'Apple’s own toolchain (hdiutil/codesign) only runs on macOS, so this build needs a Mac host — coming via a macOS CI runner. Build it yourself today with npm run dist:mac.',
     },
     {
       icon: Globe, os: 'Web preview', status: 'Instant', ready: true, web: true,
@@ -405,14 +545,23 @@ function DownloadSection() {
                 {c.status}
               </div>
               <p className="mt-3 flex-1 text-[12.5px] leading-relaxed text-zinc-500">{c.note}</p>
-              {c.ready && !c.web && (
-                <a
-                  href={DOWNLOAD_FILE}
-                  download
-                  className="mt-4 flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-4 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-emerald-400"
-                >
-                  <Download className="h-3.5 w-3.5" /> .tar.xz · 70 MB
-                </a>
+              {c.ready && !c.web && c.downloads && (
+                <div className="mt-4 flex flex-col gap-2">
+                  {c.downloads.map((d, i) => (
+                    <a
+                      key={d.href}
+                      href={d.href}
+                      download
+                      className={
+                        i === 0
+                          ? 'flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-4 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-emerald-400'
+                          : 'flex items-center justify-center gap-2 rounded-full border border-white/12 px-4 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:bg-white/5'
+                      }
+                    >
+                      <Download className="h-3.5 w-3.5" /> {d.label}
+                    </a>
+                  ))}
+                </div>
               )}
               {c.web && (
                 <a
@@ -503,8 +652,10 @@ export default function App() {
           'Downloads land in your real Downloads folder',
         ]}
       />
+      <Guide />
       <Charter />
       <Byok />
+      <DevSdk />
       <Showcase
         eyebrow="Device aware"
         title={<>It knows <span className="gradient-text">its hardware.</span></>}
