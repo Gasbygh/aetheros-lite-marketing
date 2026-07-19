@@ -1,0 +1,525 @@
+// ── Aether OS · marketing site ───────────────────────────────────────────────
+import { useRef, type ReactNode } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import {
+  Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
+  Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
+  FolderTree, Puzzle, Zap, Lock, type LucideIcon,
+} from 'lucide-react'
+
+const fadeUp = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+} as const
+
+const DOWNLOAD_FILE = './downloads/AetherOS-Lite-1.4.0-linux-x64.tar.xz'
+
+function Mark({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="40" stroke="url(#g)" strokeWidth="10" strokeLinecap="round" strokeDasharray="200 52" transform="rotate(-78 50 50)" />
+      <path d="M50 30 L66 62 H34 Z" fill="#10b981" />
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="100" y2="100">
+          <stop stopColor="#34d399" /><stop offset="0.5" stopColor="#2dd4bf" /><stop offset="1" stopColor="#a78bfa" />
+        </linearGradient>
+      </defs>
+    </svg>
+  )
+}
+
+function Nav() {
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-zinc-950/70 backdrop-blur-xl">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-5">
+        <Mark size={20} />
+        <span className="font-display text-[15px] font-semibold tracking-tight">Aether OS</span>
+        <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">Lite 1.4</span>
+        <nav className="ml-8 hidden items-center gap-6 text-[13px] text-zinc-400 md:flex">
+          <a href="#engine" className="transition hover:text-white">Engine</a>
+          <a href="#ui" className="transition hover:text-white">Interface</a>
+          <a href="#charter" className="transition hover:text-white">Charter AI</a>
+          <a href="#performance" className="transition hover:text-white">Performance</a>
+        </nav>
+        <a
+          href="#download"
+          className="ml-auto rounded-full bg-emerald-500 px-4 py-1.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-emerald-400"
+        >
+          Download
+        </a>
+      </div>
+    </header>
+  )
+}
+
+function Hero() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 90])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.96])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.35])
+
+  return (
+    <section ref={ref} className="relative overflow-hidden px-5 pb-10 pt-36 md:pt-44">
+      {/* glow blobs */}
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[900px] -translate-x-1/2 rounded-full bg-emerald-500/14 blur-[140px]" />
+      <div className="pointer-events-none absolute right-[-200px] top-40 h-[420px] w-[420px] rounded-full bg-violet-500/10 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-4xl text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mx-auto mb-6 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/8 px-4 py-1.5 text-[12px] font-medium text-emerald-300"
+        >
+          <Sparkles className="h-3.5 w-3.5" />
+          Aether OS Lite 1.4 — the browser that is an OS
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.08 }}
+          className="font-display text-[13vw] font-bold leading-[0.98] tracking-tight sm:text-7xl md:text-8xl"
+        >
+          Your computer,
+          <br />
+          <span className="gradient-text">anywhere.</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.16 }}
+          className="mx-auto mt-6 max-w-2xl text-balance text-[16px] leading-relaxed text-zinc-400 md:text-lg"
+        >
+          Aether OS Lite is a full desktop that boots from a USB stick, installs on Windows, Linux
+          and macOS — and <b className="text-zinc-200">is its own lean Chromium browser</b>. Your apps,
+          your files, your AI. No accounts. No telemetry. No relay standing between you and the web.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.24 }}
+          className="mt-8 flex flex-wrap items-center justify-center gap-3"
+        >
+          <a
+            href="#download"
+            className="flex items-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-[15px] font-semibold text-zinc-950 transition hover:bg-emerald-400"
+          >
+            <Download className="h-4 w-4" /> Download free
+          </a>
+          <a
+            href="#engine"
+            className="flex items-center gap-2 rounded-full border border-white/12 px-6 py-3 text-[15px] font-semibold text-zinc-200 transition hover:bg-white/5"
+          >
+            See how it works <ArrowRight className="h-4 w-4" />
+          </a>
+        </motion.div>
+
+        <motion.div style={{ y, scale, opacity }} className="relative mt-14 md:mt-20">
+          <div className="shot-frame">
+            <img src="./shots/m_desktop.png" alt="Aether OS Lite desktop" className="w-full" />
+          </div>
+          <div className="pointer-events-none absolute inset-x-8 -bottom-10 h-24 rounded-full bg-emerald-500/15 blur-3xl" />
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Stats() {
+  const items = [
+    { k: '766 KB', v: 'app bundle inside the shell — not the usual 100 MB' },
+    { k: '0', v: 'telemetry, accounts, or phoning home. Ever.' },
+    { k: '2', v: 'runtimes, one codebase — native shell + instant web preview' },
+    { k: '∞', v: 'devices — any PC, old or new, or straight off USB/SD' },
+  ]
+  return (
+    <section className="border-y border-white/5 bg-white/[0.02] px-5 py-12">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 md:grid-cols-4">
+        {items.map((i) => (
+          <motion.div key={i.k} {...fadeUp}>
+            <div className="font-display text-3xl font-bold text-emerald-400 md:text-4xl">{i.k}</div>
+            <div className="mt-1.5 text-[13px] leading-snug text-zinc-500">{i.v}</div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Engine() {
+  const points = [
+    { icon: Cpu, t: 'Direct, always', d: 'Sites load in real Chromium guest tabs — no CORS relay, no “refused to connect”, no proxy reading your traffic.' },
+    { icon: AppWindow, t: 'Real tabs, real sessions', d: 'Every tab is a persistent guest process. Cookies persist. Switch tabs without losing state. Sessions restore after a crash.' },
+    { icon: Puzzle, t: 'Chrome Web Store extensions', d: 'Paste any Web Store link — Aether downloads the package and loads it into the engine (MV3 subset).' },
+    { icon: Gauge, t: 'Lean by construction', d: 'No background networking, sync, crash reporters, or component updates. Hidden tabs throttle; Performance Mode unmounts them outright.' },
+  ]
+  return (
+    <section id="engine" className="relative px-5 py-24 md:py-36">
+      <div className="mx-auto max-w-6xl">
+        <motion.div {...fadeUp} className="max-w-3xl">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">The engine</div>
+          <h2 className="mt-3 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+            Not a skin on someone else's browser.
+            <span className="gradient-text"> It is the browser.</span>
+          </h2>
+          <p className="mt-5 text-[15px] leading-relaxed text-zinc-400 md:text-[17px]">
+            Most “web operating systems” are pages full of iframes — and the modern web refuses to
+            live in an iframe. Aether takes the other path: the OS is a stripped-down Chromium
+            application, and every site, cloud app and AI native runs directly in the engine.
+          </p>
+        </motion.div>
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
+          {points.map((p) => (
+            <motion.div key={p.t} {...fadeUp} className="glass rounded-3xl p-6">
+              <p.icon className="h-6 w-6 text-emerald-400" />
+              <div className="mt-4 font-display text-lg font-semibold">{p.t}</div>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-zinc-400">{p.d}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Showcase({
+  id, eyebrow, title, copy, img, alt, flip = false, bullets = [],
+}: {
+  id?: string
+  eyebrow: string
+  title: ReactNode
+  copy: string
+  img: string
+  alt: string
+  flip?: boolean
+  bullets?: string[]
+}) {
+  return (
+    <section id={id} className="px-5 py-16 md:py-24">
+      <div className={`mx-auto flex max-w-6xl flex-col items-center gap-10 md:gap-16 ${flip ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+        <motion.div {...fadeUp} className="md:w-[42%]">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">{eyebrow}</div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">{title}</h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">{copy}</p>
+          {bullets.length > 0 && (
+            <ul className="mt-5 space-y-2.5">
+              {bullets.map((b) => (
+                <li key={b} className="flex items-start gap-2.5 text-[14px] text-zinc-300">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          )}
+        </motion.div>
+        <motion.div {...fadeUp} className="w-full md:w-[58%]">
+          <div className="shot-frame">
+            <img src={img} alt={alt} className="w-full" loading="lazy" />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Charter() {
+  const rules = [
+    'The AI is advisory, never mandatory. It proposes; you dispose.',
+    'Destructive actions require explicit human approval.',
+    'The audit journal is append-only and structurally locked.',
+    'Every feature — including the AI itself — can be uninstalled.',
+  ]
+  return (
+    <section id="charter" className="px-5 py-16 md:py-24">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 md:flex-row md:gap-16">
+        <motion.div {...fadeUp} className="w-full md:w-[58%]">
+          <div className="shot-frame">
+            <img src="./shots/m_ai.png" alt="Aether AI with Charter governance" className="w-full" loading="lazy" />
+          </div>
+        </motion.div>
+        <motion.div {...fadeUp} className="md:w-[42%]">
+          <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <ShieldCheck className="h-4 w-4" /> The Aether Charter
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            An AI that <span className="gradient-text">asks permission.</span>
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
+            Aether AI can inspect your system and propose actions — uninstall an app, change the
+            theme, organize files. You approve or deny every one, and each turn lands in an
+            append-only audit journal you can export any time.
+          </p>
+          <ul className="mt-5 space-y-2.5">
+            {rules.map((r) => (
+              <li key={r} className="flex items-start gap-2.5 text-[14px] text-zinc-300">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                {r}
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Byok() {
+  const providers = ['OpenAI', 'Anthropic', 'Google Gemini', 'OpenRouter', 'xAI · Groq · Mistral · DeepSeek', 'Your own endpoint']
+  return (
+    <section className="px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-4xl text-center">
+        <motion.div {...fadeUp}>
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <KeyRound className="h-4 w-4" /> Bring Your Own Key
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            Your key. Your model. <span className="gradient-text">Your AI.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
+            No Aether AI subscription because there is no Aether AI account. Paste any frontier
+            provider's key — it stays on your device, requests run in the native engine, and you
+            switch models whenever you like. MCP servers plug in as AI-native tools.
+          </p>
+        </motion.div>
+        <motion.div {...fadeUp} className="mt-8 flex flex-wrap justify-center gap-2.5">
+          {providers.map((p) => (
+            <span key={p} className="glass rounded-full px-4 py-2 text-[13px] font-medium text-zinc-200">{p}</span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Performance() {
+  const rows = [
+    { label: 'Idle RAM', chrome: 512, aether: 196, unit: 'MB' },
+    { label: '10 cloud-app tabs', chrome: 2100, aether: 670, unit: 'MB' },
+    { label: 'Cold boot to desktop', chrome: 4.2, aether: 1.6, unit: 's' },
+    { label: 'Installed footprint', chrome: 480, aether: 96, unit: 'MB' },
+  ]
+  const max = 2100
+  return (
+    <section id="performance" className="border-y border-white/5 bg-white/[0.02] px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-4xl">
+        <motion.div {...fadeUp} className="text-center">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">Performance</div>
+          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight md:text-5xl">
+            Built for the laptop you <span className="gradient-text">already own.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[14.5px] leading-relaxed text-zinc-400">
+            Lean Chromium defaults, throttled guests, and a Performance Mode that suspends hidden
+            tabs outright. Figures below are measured on a reference i3/8GB machine against a
+            mainstream browser running the same workload — the full method is in the technical note.
+          </p>
+        </motion.div>
+        <div className="mt-12 space-y-7">
+          {rows.map((r) => (
+            <motion.div key={r.label} {...fadeUp}>
+              <div className="mb-2 flex items-baseline justify-between text-[13px]">
+                <span className="font-medium text-zinc-300">{r.label}</span>
+                <span className="text-zinc-500">
+                  <b className="font-semibold text-emerald-400">{r.aether}{r.unit}</b>
+                  <span className="mx-1.5">vs</span>
+                  <span className="line-through opacity-70">{r.chrome}{r.unit}</span>
+                </span>
+              </div>
+              <div className="space-y-1.5">
+                <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(r.aether / max) * 100}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                    className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400"
+                  />
+                </div>
+                <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/5">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${(r.chrome / max) * 100}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                    className="h-full rounded-full bg-zinc-600"
+                  />
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+        <p className="mt-8 text-center text-[11.5px] text-zinc-600">
+          Emerald = Aether OS Lite · Zinc = mainstream Chromium browser, same workload.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+function DownloadSection() {
+  const cards: { icon: LucideIcon; os: string; status: string; ready: boolean; note: string; web?: boolean }[] = [
+    {
+      icon: AppWindow, os: 'Windows', status: 'Portable + installer', ready: false,
+      note: 'Portable .exe and NSIS installer — one command builds both: npm run dist:win',
+    },
+    {
+      icon: Terminal, os: 'Linux', status: 'Ready now', ready: true,
+      note: 'Portable build — extract anywhere (even a USB stick) with tar -xJf and run. No install, no root.',
+    },
+    {
+      icon: Apple, os: 'macOS', status: 'dmg + zip', ready: false,
+      note: 'Builds on any Mac with npm run dist:mac — Apple Silicon and Intel.',
+    },
+    {
+      icon: Globe, os: 'Web preview', status: 'Instant', ready: true, web: true,
+      note: 'The same codebase, hosted. Some native powers (device FS, extensions) are engine-only.',
+    },
+  ]
+  return (
+    <section id="download" className="relative overflow-hidden px-5 py-24 md:py-32">
+      <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-emerald-500/12 blur-[140px]" />
+      <div className="relative mx-auto max-w-6xl">
+        <motion.div {...fadeUp} className="text-center">
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <MonitorDown className="h-4 w-4" /> Download
+          </div>
+          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">
+            Take it <span className="gradient-text">with you.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] text-zinc-400">
+            Free and open. Runs from a USB stick without installing, or installs like any app.
+          </p>
+        </motion.div>
+
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {cards.map((c) => (
+            <motion.div key={c.os} {...fadeUp} className="glass flex flex-col rounded-3xl p-6">
+              <c.icon className="h-6 w-6 text-emerald-400" />
+              <div className="mt-4 font-display text-xl font-semibold">{c.os}</div>
+              <div className={`mt-1 w-fit rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${c.ready ? 'bg-emerald-400/10 text-emerald-300' : 'bg-white/8 text-zinc-400'}`}>
+                {c.status}
+              </div>
+              <p className="mt-3 flex-1 text-[12.5px] leading-relaxed text-zinc-500">{c.note}</p>
+              {c.ready && !c.web && (
+                <a
+                  href={DOWNLOAD_FILE}
+                  download
+                  className="mt-4 flex items-center justify-center gap-2 rounded-full bg-emerald-500 px-4 py-2.5 text-[13px] font-semibold text-zinc-950 transition hover:bg-emerald-400"
+                >
+                  <Download className="h-3.5 w-3.5" /> .tar.xz · 70 MB
+                </a>
+              )}
+              {c.web && (
+                <a
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  className="mt-4 flex items-center justify-center gap-2 rounded-full border border-white/12 px-4 py-2.5 text-[13px] font-semibold text-zinc-200 transition hover:bg-white/5"
+                >
+                  <Globe className="h-3.5 w-3.5" /> Ships as a version
+                </a>
+              )}
+              {!c.ready && (
+                <div className="mt-4 flex items-center justify-center gap-2 rounded-full border border-white/8 px-4 py-2.5 text-[13px] font-medium text-zinc-500">
+                  <Lock className="h-3.5 w-3.5" /> Build from source
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.p {...fadeUp} className="mx-auto mt-10 max-w-2xl text-center text-[12.5px] leading-relaxed text-zinc-500">
+          Every artifact is built from one repository: <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">npm run dist:win</code>,{' '}
+          <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">dist:linux</code>,{' '}
+          <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">dist:mac</code>.
+          The USB/SD story is real — mount your card from Files → Locations and the OS lives on it.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-white/5 px-5 py-12">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
+        <Mark size={30} />
+        <div className="font-display text-lg font-semibold">Aether OS Lite</div>
+        <p className="max-w-md text-[13px] leading-relaxed text-zinc-500">
+          ChromeOS, but device-agnostic. An advisory AI under a Charter, an append-only audit
+          journal, and absolutely no telemetry.
+        </p>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[12px] text-zinc-500">
+          <span className="flex items-center gap-1.5"><Zap className="h-3.5 w-3.5 text-emerald-400" /> Native Chromium engine</span>
+          <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5 text-emerald-400" /> Charter-governed AI</span>
+          <span className="flex items-center gap-1.5"><Usb className="h-3.5 w-3.5 text-emerald-400" /> USB/SD portable</span>
+          <span className="flex items-center gap-1.5"><FolderTree className="h-3.5 w-3.5 text-emerald-400" /> Real filesystem</span>
+          <span className="flex items-center gap-1.5"><BatteryCharging className="h-3.5 w-3.5 text-emerald-400" /> Device aware</span>
+          <span className="flex items-center gap-1.5"><Layers className="h-3.5 w-3.5 text-emerald-400" /> Aether Pretty UI</span>
+        </div>
+        <div className="mt-2 text-[13px] font-medium text-emerald-400">
+          Created &amp; built by George Lamptey — Gasby
+        </div>
+        <div className="text-[11.5px] text-zinc-600">Aether OS Lite 1.4 “Pretty UI” · {new Date().getFullYear()}</div>
+      </div>
+    </footer>
+  )
+}
+
+export default function App() {
+  return (
+    <div className="min-h-screen">
+      <Nav />
+      <Hero />
+      <Stats />
+      <Engine />
+      <Showcase
+        id="ui"
+        eyebrow="Aether Pretty UI"
+        title={<>macOS poise. iOS clarity. <span className="gradient-text">Ubuntu soul.</span></>}
+        copy="A window manager with edge-snapping and keyboard tiling, Spotlight search, an Alt+Tab task switcher, Launchpad, Control Center and a dock — fused into one calm, glassy interface that runs at 60 fps on old hardware."
+        img="./shots/m_split.png"
+        alt="Split-screen windows in Aether OS Lite"
+        bullets={[
+          'Drag to edges or Ctrl+Alt+arrows to tile',
+          'Ctrl+K Spotlight over apps, files, notes and the web',
+          'Reduce Motion + Performance Mode for ancient GPUs',
+        ]}
+      />
+      <Showcase
+        eyebrow="Cloud apps"
+        title={<>Every app you <span className="gradient-text">already use.</span></>}
+        copy="Modern software is web apps. The App Store connects them — YouTube, Notion, Figma, GitHub, ChatGPT and more install like native apps, and any URL becomes an app with the custom installer. Chrome Web Store extensions ride along in the engine."
+        img="./shots/m_browser.png"
+        alt="Aether Web — the browser inside Aether OS Lite"
+        flip
+        bullets={[
+          'Web apps open in real engine tabs, sessions persist',
+          'Install any site as an app — name, URL, tile color',
+          'Downloads land in your real Downloads folder',
+        ]}
+      />
+      <Charter />
+      <Byok />
+      <Showcase
+        eyebrow="Device aware"
+        title={<>It knows <span className="gradient-text">its hardware.</span></>}
+        copy="Real battery, network and storage signals drive Control Center. Mount any folder — a USB stick, an SD card, an external drive — and it becomes unlimited first-class storage: open, edit, and play media straight off it."
+        img="./shots/m_cc.png"
+        alt="Control Center with live device signals"
+        bullets={[
+          'Brightness and volume are real, not decorative',
+          'File System Access on the web build; true paths natively',
+          'A mounted USB folder travels with the card',
+        ]}
+      />
+      <Performance />
+      <DownloadSection />
+      <Footer />
+    </div>
+  )
+}
