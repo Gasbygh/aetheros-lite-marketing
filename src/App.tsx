@@ -1,10 +1,11 @@
 // ── Aether OS · marketing site ───────────────────────────────────────────────
-import { useRef, type ReactNode } from 'react'
+import { useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
   Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
   Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
-  FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, Plug, type LucideIcon,
+  FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, Plug, HeartHandshake,
+  Laptop, MapPin, Loader2, CircleCheck, CircleAlert, Send, type LucideIcon,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -14,10 +15,10 @@ const fadeUp = {
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
 } as const
 
-const RELEASE = 'https://github.com/Gasbygh/aetheros-lite-releases/releases/download/v1.4.0'
-const LINUX_FILE = `${RELEASE}/AetherOS-Lite-1.4.0-linux-x64.tar.xz`
-const WIN_PORTABLE_FILE = `${RELEASE}/AetherOS-Lite-Portable.exe`
-const WIN_INSTALLER_FILE = `${RELEASE}/Aether.OS.Lite.Setup.1.4.0.exe`
+const RELEASES = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download'
+const LINUX_FILE = `${RELEASES}/v1.4.0/AetherOS-Lite-1.4.0-linux-x64.tar.xz`
+const WIN_PORTABLE_FILE = `${RELEASES}/v1.4.2/AetherOS-Lite-Portable.exe`
+const WIN_INSTALLER_FILE = `${RELEASES}/v1.4.2/Aether-OS-Lite-Setup-1.4.2.exe`
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
@@ -47,6 +48,7 @@ function Nav() {
           <a href="#developers" className="transition hover:text-white">Developers</a>
           <a href="#guide" className="transition hover:text-white">Guide</a>
           <a href="#performance" className="transition hover:text-white">Performance</a>
+          <a href="#foundation" className="transition hover:text-white">Foundation</a>
         </nav>
         <a
           href="#download"
@@ -615,6 +617,209 @@ function DownloadSection() {
   )
 }
 
+// TODO: replace with a real Formspree (or compatible) endpoint — create a
+// free form at https://formspree.io, then paste its ID here. Until then the
+// form renders and validates fully but submission will fail with a clear
+// error rather than silently pretending to succeed.
+const TAF_FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+
+const CONTINENTS = ['Africa', 'South America', 'North America', 'Asia'] as const
+type Continent = (typeof CONTINENTS)[number]
+type DonationType = 'devices' | 'cash' | 'both'
+
+function Taf() {
+  const [donationType, setDonationType] = useState<DonationType>('devices')
+  const [continent, setContinent] = useState<Continent | null>(null)
+  const [consent, setConsent] = useState(false)
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
+  const [error, setError] = useState<string | null>(null)
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!continent) { setError('Pick which continent should receive the donation.'); return }
+    if (!consent) { setError('Please confirm you’re okay being contacted about this donation.'); return }
+    setError(null)
+    setStatus('submitting')
+    const form = e.currentTarget
+    const data = new FormData(form)
+    data.set('donationType', donationType)
+    data.set('continent', continent)
+    try {
+      const res = await fetch(TAF_FORM_ENDPOINT, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      })
+      if (!res.ok) throw new Error(`Server responded ${res.status}`)
+      setStatus('success')
+      form.reset()
+      setConsent(false)
+    } catch {
+      setStatus('error')
+      setError('Couldn’t reach the donation form right now. Please try again, or email us directly.')
+    }
+  }
+
+  return (
+    <section id="foundation" className="relative overflow-hidden px-5 py-24 md:py-32">
+      <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[140px]" />
+      <div className="relative mx-auto max-w-5xl">
+        <motion.div {...fadeUp} className="text-center">
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <HeartHandshake className="h-4 w-4" /> The Aether Foundation
+          </div>
+          <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">
+            Give a laptop <span className="gradient-text">a second life.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
+            Old hardware doesn't have to become e-waste. Donate a device and we refurbish it with
+            Aether OS Lite — light enough to run well again — for community centers and school IT
+            labs across Africa, the Americas, and Asia. Can't ship a laptop? A cash donation helps
+            us buy or refurbish one for a lab that needs it.
+          </p>
+        </motion.div>
+
+        <motion.div {...fadeUp} className="mt-14 grid gap-4 md:grid-cols-4">
+          {[
+            { icon: Laptop, title: 'Donate a device', copy: 'Any working (or mostly-working) laptop or tablet. We handle wiping, refurbishing, and installing Aether OS.' },
+            { icon: HeartHandshake, title: 'Or donate cash', copy: 'Funds new or refurbished devices for labs where hardware donations alone can’t meet demand.' },
+            { icon: MapPin, title: 'Pick a continent', copy: 'Choose where your donation goes: Africa, South America, North America, or Asia.' },
+            { icon: Send, title: 'We handle logistics', copy: 'After you submit, our team follows up by email to coordinate shipping or payment securely.' },
+          ].map((s) => (
+            <div key={s.title} className="glass rounded-2xl p-5">
+              <s.icon className="h-5 w-5 text-emerald-400" />
+              <div className="mt-3 text-[13.5px] font-semibold text-zinc-100">{s.title}</div>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-zinc-500">{s.copy}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        <motion.form {...fadeUp} onSubmit={handleSubmit} className="glass mt-10 rounded-3xl p-6 md:p-10">
+          {status === 'success' ? (
+            <div className="flex flex-col items-center gap-3 py-10 text-center">
+              <CircleCheck className="h-10 w-10 text-emerald-400" />
+              <div className="font-display text-xl font-semibold">Thank you.</div>
+              <p className="max-w-md text-[13.5px] leading-relaxed text-zinc-400">
+                We've received your donation interest and will follow up by email with next steps.
+              </p>
+            </div>
+          ) : (
+            <>
+              <div>
+                <div className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">I'd like to donate</div>
+                <div className="mt-2.5 flex flex-wrap gap-2">
+                  {([
+                    ['devices', 'Devices'],
+                    ['cash', 'Cash'],
+                    ['both', 'Both'],
+                  ] as [DonationType, string][]).map(([val, label]) => (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => setDonationType(val)}
+                      className={`rounded-full px-4 py-1.5 text-[13px] font-semibold transition ${
+                        donationType === val
+                          ? 'bg-emerald-500 text-zinc-950'
+                          : 'border border-white/12 text-zinc-300 hover:bg-white/5'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <div className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Send it to</div>
+                <div className="mt-2.5 flex flex-wrap gap-2">
+                  {CONTINENTS.map((c) => (
+                    <button
+                      key={c}
+                      type="button"
+                      onClick={() => setContinent(c)}
+                      className={`flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold transition ${
+                        continent === c
+                          ? 'bg-emerald-500 text-zinc-950'
+                          : 'border border-white/12 text-zinc-300 hover:bg-white/5'
+                      }`}
+                    >
+                      <MapPin className="h-3 w-3" /> {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <label className="block">
+                  <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Name</span>
+                  <input name="name" type="text" required
+                    className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                </label>
+                <label className="block">
+                  <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Email</span>
+                  <input name="email" type="email" required
+                    className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                </label>
+                <label className="block sm:col-span-2">
+                  <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Organization <span className="normal-case text-zinc-600">(school, company, community group — optional)</span></span>
+                  <input name="organization" type="text"
+                    className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                </label>
+                {(donationType === 'devices' || donationType === 'both') && (
+                  <label className="block sm:col-span-2">
+                    <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">About the device(s)</span>
+                    <textarea name="deviceDetails" rows={2} placeholder="e.g. 3 laptops, working condition, Windows 10-era"
+                      className="mt-1.5 w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                  </label>
+                )}
+                {(donationType === 'cash' || donationType === 'both') && (
+                  <label className="block sm:col-span-2">
+                    <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Approximate amount <span className="normal-case text-zinc-600">(optional — no payment info here, we'll follow up securely)</span></span>
+                    <input name="cashAmount" type="text" placeholder="e.g. $50, or 'not sure yet'"
+                      className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                  </label>
+                )}
+                <label className="block sm:col-span-2">
+                  <span className="text-[12.5px] font-semibold uppercase tracking-wide text-zinc-400">Anything else? <span className="normal-case text-zinc-600">(optional)</span></span>
+                  <textarea name="message" rows={2}
+                    className="mt-1.5 w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-[14px] text-zinc-100 outline-none placeholder:text-zinc-600 focus:border-emerald-400/50" />
+                </label>
+              </div>
+
+              <label className="mt-5 flex items-start gap-2.5 text-[12.5px] leading-relaxed text-zinc-400">
+                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5" />
+                I'm okay being contacted by email about this donation. No spam, no sharing your info elsewhere.
+              </label>
+
+              {error && (
+                <div className="mt-4 flex items-center gap-2 rounded-xl bg-rose-500/10 px-3.5 py-2.5 text-[12.5px] text-rose-400">
+                  <CircleAlert className="h-4 w-4 shrink-0" /> {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status === 'submitting'}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3 text-[14px] font-semibold text-zinc-950 transition hover:bg-emerald-400 disabled:opacity-60 sm:w-auto"
+              >
+                {status === 'submitting' ? <Loader2 className="h-4 w-4 animate-spin" /> : <HeartHandshake className="h-4 w-4" />}
+                {status === 'submitting' ? 'Sending…' : 'Submit donation interest'}
+              </button>
+            </>
+          )}
+        </motion.form>
+
+        <motion.p {...fadeUp} className="mx-auto mt-6 max-w-xl text-center text-[12px] leading-relaxed text-zinc-600">
+          Prefer email? Reach the Foundation directly at{' '}
+          <a href="mailto:foundation@thisisdigos.com" className="text-emerald-400 hover:underline">foundation@thisisdigos.com</a>.
+          Large or bulk corporate donations especially welcome.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <footer className="border-t border-white/5 px-5 py-12">
@@ -694,6 +899,7 @@ export default function App() {
       />
       <Performance />
       <DownloadSection />
+      <Taf />
       <Footer />
     </div>
   )
