@@ -5,7 +5,7 @@ import {
   Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
   Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
   FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, Plug, HeartHandshake,
-  Laptop, MapPin, Loader2, CircleCheck, CircleAlert, Send, type LucideIcon,
+  Laptop, MapPin, Loader2, CircleCheck, CircleAlert, Send, History, type LucideIcon,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -17,8 +17,8 @@ const fadeUp = {
 
 const RELEASES = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download'
 const LINUX_FILE = `${RELEASES}/v1.4.0/AetherOS-Lite-1.4.0-linux-x64.tar.xz`
-const WIN_PORTABLE_FILE = `${RELEASES}/v1.4.2/AetherOS-Lite-Portable.exe`
-const WIN_INSTALLER_FILE = `${RELEASES}/v1.4.2/Aether-OS-Lite-Setup-1.4.2.exe`
+const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.0/AetherOS-Lite-Portable.exe`
+const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.0/Aether.OS.Lite.Setup.1.5.0.exe`
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
@@ -40,7 +40,7 @@ function Nav() {
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-5">
         <Mark size={20} />
         <span className="font-display text-[15px] font-semibold tracking-tight">Aether OS</span>
-        <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">Lite 1.4</span>
+        <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">Lite 1.5</span>
         <nav className="ml-8 hidden items-center gap-6 text-[13px] text-zinc-400 md:flex">
           <a href="#engine" className="transition hover:text-white">Engine</a>
           <a href="#ui" className="transition hover:text-white">Interface</a>
@@ -49,6 +49,7 @@ function Nav() {
           <a href="#guide" className="transition hover:text-white">Guide</a>
           <a href="#performance" className="transition hover:text-white">Performance</a>
           <a href="#foundation" className="transition hover:text-white">Foundation</a>
+          <a href="#changelog" className="transition hover:text-white">Changelog</a>
         </nav>
         <a
           href="#download"
@@ -82,7 +83,7 @@ function Hero() {
           className="mx-auto mb-6 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/8 px-4 py-1.5 text-[12px] font-medium text-emerald-300"
         >
           <Sparkles className="h-3.5 w-3.5" />
-          Aether OS Lite 1.4 — the browser that is an OS
+          Aether OS Lite 1.5 — the browser that is an OS
         </motion.div>
 
         <motion.h1
@@ -241,6 +242,7 @@ function Charter() {
     'Destructive actions require explicit human approval.',
     'The audit journal is append-only and structurally locked.',
     'Every feature — including the AI itself — can be uninstalled.',
+    'A local PIN lock guards the device — still no account, still no cloud.',
   ]
   return (
     <section id="charter" className="px-5 py-16 md:py-24">
@@ -375,15 +377,14 @@ function Mcp() {
         <motion.div {...fadeUp}>
           <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
             <Plug className="h-4 w-4" /> MCP servers
-            <span className="rounded-full bg-white/8 px-2 py-0.5 text-[10px] font-semibold normal-case tracking-normal text-zinc-400">Experimental</span>
           </div>
           <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
             Give Aether AI <span className="gradient-text">real tools.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
             Connect Model Context Protocol servers (HTTP) — AI-native tools and data sources.
-            Aether AI can query them through the native engine; connections are journaled like
-            everything else.
+            Aether AI can call them through the native engine, same as any other action: proposed,
+            approved by you, and journaled like everything else.
           </p>
         </motion.div>
       </div>
@@ -819,6 +820,68 @@ function Taf() {
   )
 }
 
+const CHANGELOG = [
+  {
+    version: '1.5.0',
+    date: 'July 2026',
+    entries: [
+      'PIN lock, PWA-style windows for web apps, and real LLM tool-calling in Aether AI',
+      'Screenshot/recording, clipboard history, desktop widgets, and four new apps (PDF Viewer, Activity Monitor, Mail, Maps)',
+      'Fixed: web games no longer slow down or crash Aether — live webview guests are now capped',
+    ],
+  },
+  {
+    version: '1.4.2',
+    date: 'July 2026',
+    entries: [
+      'Real weather forecasts, Games category in the App Store, hardware Settings pages',
+      'Fixed invisible UI from opacity utilities that never generated CSS',
+    ],
+  },
+  {
+    version: '1.4.0',
+    date: 'July 2026',
+    entries: [
+      'First public release of the Pretty UI redesign',
+    ],
+  },
+] as const
+
+function Changelog() {
+  return (
+    <section id="changelog" className="border-t border-white/5 px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-2xl">
+        <motion.div {...fadeUp} className="text-center">
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <History className="h-4 w-4" /> Changelog
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            What <span className="gradient-text">shipped when.</span>
+          </h2>
+        </motion.div>
+        <div className="mt-10 space-y-8">
+          {CHANGELOG.map((release) => (
+            <motion.div key={release.version} {...fadeUp} className="glass rounded-2xl p-6">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display text-lg font-bold text-white">v{release.version}</span>
+                <span className="text-[12px] text-zinc-500">{release.date}</span>
+              </div>
+              <ul className="mt-3 space-y-2">
+                {release.entries.map((entry) => (
+                  <li key={entry} className="flex items-start gap-2.5 text-[13.5px] leading-relaxed text-zinc-400">
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                    {entry}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <footer className="border-t border-white/5 px-5 py-12">
@@ -840,7 +903,7 @@ function Footer() {
         <div className="mt-2 text-[13px] font-medium text-emerald-400">
           Created &amp; built by George Lamptey — Gasby
         </div>
-        <div className="text-[11.5px] text-zinc-600">Aether OS Lite 1.4 “Pretty UI” · {new Date().getFullYear()}</div>
+        <div className="text-[11.5px] text-zinc-600">Aether OS Lite 1.5 “Pretty UI” · {new Date().getFullYear()}</div>
       </div>
     </footer>
   )
@@ -876,6 +939,7 @@ export default function App() {
         bullets={[
           'Web apps open in real engine tabs, sessions persist',
           'Install any site as an app — name, URL, tile color',
+          'Or open it as its own standalone PWA-style window',
           'Downloads land in your real Downloads folder',
         ]}
       />
@@ -899,6 +963,7 @@ export default function App() {
       <Performance />
       <DownloadSection />
       <Taf />
+      <Changelog />
       <Footer />
     </div>
   )
