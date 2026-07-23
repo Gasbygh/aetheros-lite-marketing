@@ -617,7 +617,8 @@ function DownloadSection() {
   )
 }
 
-const TAF_FORM_ENDPOINT = 'https://formspree.io/f/xdaqlwpw'
+const TAF_FORM_ENDPOINT = 'https://api.web3forms.com/submit'
+const TAF_WEB3FORMS_ACCESS_KEY = '461f792e-930e-47a5-8a8f-cb8105ed659d'
 
 const CONTINENTS = ['Africa', 'South America', 'North America', 'Asia'] as const
 type Continent = (typeof CONTINENTS)[number]
@@ -640,6 +641,8 @@ function Taf() {
     const data = new FormData(form)
     data.set('donationType', donationType)
     data.set('continent', continent)
+    data.set('access_key', TAF_WEB3FORMS_ACCESS_KEY)
+    data.set('subject', 'New Aether Foundation donation interest')
     try {
       const res = await fetch(TAF_FORM_ENDPOINT, {
         method: 'POST',
