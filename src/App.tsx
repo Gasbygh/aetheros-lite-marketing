@@ -16,7 +16,7 @@ const fadeUp = {
 } as const
 
 const RELEASES = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download'
-const LINUX_FILE = `${RELEASES}/v1.4.0/AetherOS-Lite-1.4.0-linux-x64.tar.xz`
+const LINUX_FILE = `${RELEASES}/v1.5.0/AetherOS-Lite.AppImage`
 const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.0/AetherOS-Lite-Portable.exe`
 const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.0/Aether.OS.Lite.Setup.1.5.0.exe`
 
@@ -571,8 +571,8 @@ function DownloadSection() {
     },
     {
       icon: Terminal, os: 'Linux', status: 'Ready now', ready: true,
-      note: 'Portable build — extract anywhere (even a USB stick) with tar -xJf and run. No install, no root.',
-      downloads: [{ label: '.tar.xz · 70 MB', href: LINUX_FILE }],
+      note: 'AppImage — chmod +x and run from anywhere (even a USB stick). No install, no root.',
+      downloads: [{ label: '.AppImage · 122 MB', href: LINUX_FILE }],
     },
     {
       icon: Apple, os: 'macOS', status: 'dmg + zip', ready: false,
