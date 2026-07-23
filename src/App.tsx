@@ -5,7 +5,7 @@ import {
   Download, Cpu, ShieldCheck, Sparkles, Usb, Globe, KeyRound, BatteryCharging,
   Layers, ArrowRight, Check, Terminal, MonitorDown, Apple, AppWindow, Gauge,
   FolderTree, Puzzle, Zap, Lock, Code2, BookOpen, Keyboard, Plug, HeartHandshake,
-  Laptop, MapPin, Loader2, CircleCheck, CircleAlert, Send, History, type LucideIcon,
+  Laptop, MapPin, Loader2, CircleCheck, CircleAlert, Send, History, MousePointerClick, type LucideIcon,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -273,6 +273,43 @@ function Charter() {
             ))}
           </ul>
         </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function Automation() {
+  const rules = [
+    'Acts through tabs you’re already signed into — no passwords stored, ever.',
+    'Routine, low-risk page actions can run automatically; anything risky still proposes.',
+    'Banking and payment sites always require your approval, no matter what.',
+    'Submitting a form is always gated, on every site.',
+  ]
+  return (
+    <section className="border-y border-white/5 bg-white/[0.02] px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-4xl text-center">
+        <motion.div {...fadeUp}>
+          <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
+            <MousePointerClick className="h-4 w-4" /> Browser automation
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
+            Give it your <span className="gradient-text">browsing context.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
+            Aether AI can read and act on whatever page is open — fill a form, click through a flow,
+            look something up — natively inside the engine, not through a third-party integration.
+            It's the same Charter governing everything else: never your passwords, never unsupervised
+            on the sites that matter most.
+          </p>
+        </motion.div>
+        <motion.ul {...fadeUp} className="mx-auto mt-8 grid max-w-2xl gap-2.5 text-left sm:grid-cols-2">
+          {rules.map((r) => (
+            <li key={r} className="flex items-start gap-2.5 rounded-xl bg-white/[0.03] p-3 text-[13px] leading-snug text-zinc-300">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+              {r}
+            </li>
+          ))}
+        </motion.ul>
       </div>
     </section>
   )
@@ -825,6 +862,7 @@ const CHANGELOG = [
     version: '1.5.0',
     date: 'July 2026',
     entries: [
+      'Browser automation for Aether AI — reads and acts on pages through your existing signed-in tabs, Charter-gated, never a stored password',
       'PIN lock, PWA-style windows for web apps, and real LLM tool-calling in Aether AI',
       'Screenshot/recording, clipboard history, desktop widgets, and four new apps (PDF Viewer, Activity Monitor, Mail, Maps)',
       'Fixed: web games no longer slow down or crash Aether — live webview guests are now capped',
@@ -945,6 +983,7 @@ export default function App() {
       />
       <Guide />
       <Charter />
+      <Automation />
       <Byok />
       <Mcp />
       <DevSdk />
