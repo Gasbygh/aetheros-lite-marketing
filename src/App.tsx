@@ -617,11 +617,7 @@ function DownloadSection() {
   )
 }
 
-// TODO: replace with a real Formspree (or compatible) endpoint — create a
-// free form at https://formspree.io, then paste its ID here. Until then the
-// form renders and validates fully but submission will fail with a clear
-// error rather than silently pretending to succeed.
-const TAF_FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+const TAF_FORM_ENDPOINT = 'https://formspree.io/f/xdaqlwpw'
 
 const CONTINENTS = ['Africa', 'South America', 'North America', 'Asia'] as const
 type Continent = (typeof CONTINENTS)[number]
