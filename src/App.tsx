@@ -16,9 +16,9 @@ const fadeUp = {
 } as const
 
 const RELEASES = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download'
-const LINUX_FILE = `${RELEASES}/v1.5.1/AetherOS-Lite.AppImage`
-const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.1/AetherOS-Lite-Portable.exe`
-const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.1/Aether-OS-Lite-Setup-1.5.1.exe`
+const LINUX_FILE = `${RELEASES}/v1.5.2/AetherOS-Lite.AppImage`
+const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.2/AetherOS-Lite-Portable.exe`
+const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.2/Aether-OS-Lite-Setup-1.5.2.exe`
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
@@ -858,6 +858,13 @@ function Taf() {
 }
 
 const CHANGELOG = [
+  {
+    version: '1.5.2',
+    date: 'July 2026',
+    entries: [
+      'Fixed: some sites (WhatsApp Web and others) rejected Aether Web as an unsupported browser',
+    ],
+  },
   {
     version: '1.5.1',
     date: 'July 2026',
