@@ -1,4 +1,4 @@
-// ── Aether OS · marketing site ───────────────────────────────────────────────
+// ── DigOS · marketing site ───────────────────────────────────────────────
 import { useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {
@@ -16,9 +16,9 @@ const fadeUp = {
 } as const
 
 const RELEASES = 'https://github.com/Gasbygh/aetheros-lite-marketing/releases/download'
-const LINUX_FILE = `${RELEASES}/v1.5.3/AetherOS-Lite.AppImage`
-const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.3/AetherOS-Lite-Portable.exe`
-const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.3/Aether-OS-Lite-Setup-1.5.3.exe`
+const LINUX_FILE = `${RELEASES}/v1.5.4/DigOS-Lite.AppImage`
+const WIN_PORTABLE_FILE = `${RELEASES}/v1.5.4/DigOS-Lite-Portable.exe`
+const WIN_INSTALLER_FILE = `${RELEASES}/v1.5.4/DigOS-Lite-Setup-1.5.4.exe`
 
 function Mark({ size = 22 }: { size?: number }) {
   return (
@@ -39,7 +39,7 @@ function Nav() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-zinc-950/70 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-5">
         <Mark size={20} />
-        <span className="font-display text-[15px] font-semibold tracking-tight">Aether OS</span>
+        <span className="font-display text-[15px] font-semibold tracking-tight">DigOS</span>
         <span className="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">Lite 1.5</span>
         <nav className="ml-8 hidden items-center gap-6 text-[13px] text-zinc-400 md:flex">
           <a href="#engine" className="transition hover:text-white">Engine</a>
@@ -83,7 +83,7 @@ function Hero() {
           className="mx-auto mb-6 flex w-fit items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/8 px-4 py-1.5 text-[12px] font-medium text-emerald-300"
         >
           <Sparkles className="h-3.5 w-3.5" />
-          Aether OS Lite 1.5 — the browser that is an OS
+          DigOS Lite 1.5 — the browser that is an OS
         </motion.div>
 
         <motion.h1
@@ -103,7 +103,7 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.16 }}
           className="mx-auto mt-6 max-w-2xl text-balance text-[16px] leading-relaxed text-zinc-400 md:text-lg"
         >
-          Aether OS Lite is a full desktop that boots from a USB stick, installs on Windows, Linux
+          DigOS Lite is a full desktop that boots from a USB stick, installs on Windows, Linux
           and macOS — and <b className="text-zinc-200">is its own lean Chromium browser</b>. Your apps,
           your files, your AI. No accounts. No telemetry. No relay standing between you and the web.
         </motion.p>
@@ -130,7 +130,7 @@ function Hero() {
 
         <motion.div style={{ y, scale, opacity }} className="relative mt-14 md:mt-20">
           <div className="shot-frame">
-            <img src="./shots/m_desktop.png" alt="Aether OS Lite desktop" className="w-full" />
+            <img src="./shots/m_desktop.png" alt="DigOS Lite desktop" className="w-full" />
           </div>
           <div className="pointer-events-none absolute inset-x-8 -bottom-10 h-24 rounded-full bg-emerald-500/15 blur-3xl" />
         </motion.div>
@@ -164,7 +164,7 @@ function Engine() {
   const points = [
     { icon: Cpu, t: 'Direct, always', d: 'Sites load in real Chromium guest tabs — no CORS relay, no “refused to connect”, no proxy reading your traffic.' },
     { icon: AppWindow, t: 'Real tabs, real sessions', d: 'Every tab is a persistent guest process. Cookies persist. Switch tabs without losing state. Sessions restore after a crash.' },
-    { icon: Puzzle, t: 'Chrome Web Store extensions', d: 'Paste any Web Store link — Aether downloads the package and loads it into the engine (MV3 subset).' },
+    { icon: Puzzle, t: 'Chrome Web Store extensions', d: 'Paste any Web Store link — DigOS downloads the package and loads it into the engine (MV3 subset).' },
     { icon: Gauge, t: 'Lean by construction', d: 'No background networking, sync, crash reporters, or component updates. Hidden tabs throttle; Performance Mode unmounts them outright.' },
   ]
   return (
@@ -178,7 +178,7 @@ function Engine() {
           </h2>
           <p className="mt-5 text-[15px] leading-relaxed text-zinc-400 md:text-[17px]">
             Most “web operating systems” are pages full of iframes — and the modern web refuses to
-            live in an iframe. Aether takes the other path: the OS is a stripped-down Chromium
+            live in an iframe. DigOS takes the other path: the OS is a stripped-down Chromium
             application, and every site, cloud app and AI native runs directly in the engine.
           </p>
         </motion.div>
@@ -249,18 +249,18 @@ function Charter() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 md:flex-row md:gap-16">
         <motion.div {...fadeUp} className="w-full md:w-[58%]">
           <div className="shot-frame">
-            <img src="./shots/m_ai.png" alt="Aether AI with Charter governance" className="w-full" loading="lazy" />
+            <img src="./shots/m_ai.png" alt="DigOS AI with Charter governance" className="w-full" loading="lazy" />
           </div>
         </motion.div>
         <motion.div {...fadeUp} className="md:w-[42%]">
           <div className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
-            <ShieldCheck className="h-4 w-4" /> The Aether Charter
+            <ShieldCheck className="h-4 w-4" /> The DigOS Charter
           </div>
           <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
             An AI that <span className="gradient-text">asks permission.</span>
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
-            Aether AI can inspect your system and propose actions — uninstall an app, change the
+            DigOS AI can inspect your system and propose actions — uninstall an app, change the
             theme, organize files. You approve or deny every one, and each turn lands in an
             append-only audit journal you can export any time.
           </p>
@@ -296,7 +296,7 @@ function Automation() {
             Give it your <span className="gradient-text">browsing context.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
-            Aether AI can read and act on whatever page is open — fill a form, click through a flow,
+            DigOS AI can read and act on whatever page is open — fill a form, click through a flow,
             look something up — natively inside the engine, not through a third-party integration.
             It's the same Charter governing everything else: never your passwords, never unsupervised
             on the sites that matter most.
@@ -328,7 +328,7 @@ function Byok() {
             Your key. Your model. <span className="gradient-text">Your AI.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
-            No Aether AI subscription because there is no Aether AI account. Paste any frontier
+            No DigOS AI subscription because there is no DigOS AI account. Paste any frontier
             provider's key — it stays on your device, requests run in the native engine, and you
             switch models whenever you like. MCP servers plug in as AI-native tools.
           </p>
@@ -400,7 +400,7 @@ function Performance() {
           ))}
         </div>
         <p className="mt-8 text-center text-[11.5px] text-zinc-600">
-          Emerald = Aether OS Lite · Zinc = mainstream Chromium browser, same workload.
+          Emerald = DigOS Lite · Zinc = mainstream Chromium browser, same workload.
         </p>
       </div>
     </section>
@@ -416,11 +416,11 @@ function Mcp() {
             <Plug className="h-4 w-4" /> MCP servers
           </div>
           <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
-            Give Aether AI <span className="gradient-text">real tools.</span>
+            Give DigOS AI <span className="gradient-text">real tools.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
             Connect Model Context Protocol servers (HTTP) — AI-native tools and data sources.
-            Aether AI can call them through the native engine, same as any other action: proposed,
+            DigOS AI can call them through the native engine, same as any other action: proposed,
             approved by you, and journaled like everything else.
           </p>
         </motion.div>
@@ -459,12 +459,12 @@ if (aether) {
             <Code2 className="h-4 w-4" /> For developers
           </div>
           <h2 className="mt-3 font-display text-3xl font-bold leading-[1.08] tracking-tight md:text-5xl">
-            Build native apps <span className="gradient-text">for Aether.</span>
+            Build native apps <span className="gradient-text">for DigOS.</span>
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-zinc-400">
             The OS interface is a web app running as the primary surface of a stripped-down
             Chromium shell. <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">window.aether</code>{' '}
-            is injected by the preload bridge — third-party Aether apps get exactly this surface.
+            is injected by the preload bridge — third-party DigOS apps get exactly this surface.
           </p>
           <ul className="mt-5 space-y-2.5">
             {bullets.map((b) => (
@@ -543,7 +543,7 @@ function Guide() {
         </div>
         <motion.p {...fadeUp} className="mx-auto mt-8 max-w-2xl text-center text-[12.5px] leading-relaxed text-zinc-500">
           Files, notes, settings, open windows and browser tabs all persist on this device —
-          no account required. The full walkthrough (mounting a USB stick, Aether AI setup,
+          no account required. The full walkthrough (mounting a USB stick, DigOS AI setup,
           Performance Mode, and more) ships as <code className="rounded bg-white/5 px-1.5 py-0.5 text-emerald-300">HOW-TO-USE.md</code> alongside every release.
         </motion.p>
       </div>
@@ -680,7 +680,7 @@ function Taf() {
     data.set('donationType', donationType)
     data.set('continent', continent)
     data.set('access_key', TAF_WEB3FORMS_ACCESS_KEY)
-    data.set('subject', 'New Aether Foundation donation interest')
+    data.set('subject', 'New DigOS Foundation donation interest')
     try {
       const res = await fetch(TAF_FORM_ENDPOINT, {
         method: 'POST',
@@ -703,14 +703,14 @@ function Taf() {
       <div className="relative mx-auto max-w-5xl">
         <motion.div {...fadeUp} className="text-center">
           <div className="mx-auto flex w-fit items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-emerald-400">
-            <HeartHandshake className="h-4 w-4" /> The Aether Foundation
+            <HeartHandshake className="h-4 w-4" /> The DigOS Foundation
           </div>
           <h2 className="mt-3 font-display text-4xl font-bold tracking-tight md:text-6xl">
             Give a laptop <span className="gradient-text">a second life.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-zinc-400">
             Old hardware doesn't have to become e-waste. Donate a device and we refurbish it with
-            Aether OS Lite — light enough to run well again — for community centers and school IT
+            DigOS Lite — light enough to run well again — for community centers and school IT
             labs across Africa, the Americas, and Asia. Can't ship a laptop? A cash donation helps
             us buy or refurbish one for a lab that needs it.
           </p>
@@ -718,7 +718,7 @@ function Taf() {
 
         <motion.div {...fadeUp} className="mt-14 grid gap-4 md:grid-cols-4">
           {[
-            { icon: Laptop, title: 'Donate a device', copy: 'Any working (or mostly-working) laptop or tablet. We handle wiping, refurbishing, and installing Aether OS.' },
+            { icon: Laptop, title: 'Donate a device', copy: 'Any working (or mostly-working) laptop or tablet. We handle wiping, refurbishing, and installing DigOS.' },
             { icon: HeartHandshake, title: 'Or donate cash', copy: 'Funds new or refurbished devices for labs where hardware donations alone can’t meet demand.' },
             { icon: MapPin, title: 'Pick a continent', copy: 'Choose where your donation goes: Africa, South America, North America, or Asia.' },
             { icon: Send, title: 'We handle logistics', copy: 'After you submit, our team follows up by email to coordinate shipping or payment securely.' },
@@ -859,10 +859,18 @@ function Taf() {
 
 const CHANGELOG = [
   {
+    version: '1.5.4',
+    date: 'August 2026',
+    entries: [
+      'Rebranded from Aether OS Lite to DigOS Lite — same core solution, new identity',
+      'No data loss for existing installs: local settings, files, and the audit journal carry over untouched',
+    ],
+  },
+  {
     version: '1.5.3',
     date: 'July 2026',
     entries: [
-      'Hardened three effect-cleanup patterns tied to intermittent Aether AI crashes',
+      'Hardened three effect-cleanup patterns tied to intermittent DigOS AI crashes',
       'Crashes now log a full stack trace to the Audit Journal for faster diagnosis',
     ],
   },
@@ -870,24 +878,24 @@ const CHANGELOG = [
     version: '1.5.2',
     date: 'July 2026',
     entries: [
-      'Fixed: some sites (WhatsApp Web and others) rejected Aether Web as an unsupported browser',
+      'Fixed: some sites (WhatsApp Web and others) rejected DigOS Web as an unsupported browser',
     ],
   },
   {
     version: '1.5.1',
     date: 'July 2026',
     entries: [
-      'Fixed: a crash when the last Aether Web tab closed while a web-app window (e.g. YouTube) was still open',
+      'Fixed: a crash when the last DigOS Web tab closed while a web-app window (e.g. YouTube) was still open',
     ],
   },
   {
     version: '1.5.0',
     date: 'July 2026',
     entries: [
-      'Browser automation for Aether AI — reads and acts on pages through your existing signed-in tabs, Charter-gated, never a stored password',
-      'PIN lock, PWA-style windows for web apps, and real LLM tool-calling in Aether AI',
+      'Browser automation for DigOS AI — reads and acts on pages through your existing signed-in tabs, Charter-gated, never a stored password',
+      'PIN lock, PWA-style windows for web apps, and real LLM tool-calling in DigOS AI',
       'Screenshot/recording, clipboard history, desktop widgets, and four new apps (PDF Viewer, Activity Monitor, Mail, Maps)',
-      'Fixed: web games no longer slow down or crash Aether — live webview guests are now capped',
+      'Fixed: web games no longer slow down or crash DigOS — live webview guests are now capped',
     ],
   },
   {
@@ -947,7 +955,7 @@ function Footer() {
     <footer className="border-t border-white/5 px-5 py-12">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
         <Mark size={30} />
-        <div className="font-display text-lg font-semibold">Aether OS Lite</div>
+        <div className="font-display text-lg font-semibold">DigOS Lite</div>
         <p className="max-w-md text-[13px] leading-relaxed text-zinc-500">
           ChromeOS, but device-agnostic. An advisory AI under a Charter, an append-only audit
           journal, and absolutely no telemetry.
@@ -958,12 +966,12 @@ function Footer() {
           <span className="flex items-center gap-1.5"><Usb className="h-3.5 w-3.5 text-emerald-400" /> USB/SD portable</span>
           <span className="flex items-center gap-1.5"><FolderTree className="h-3.5 w-3.5 text-emerald-400" /> Real filesystem</span>
           <span className="flex items-center gap-1.5"><BatteryCharging className="h-3.5 w-3.5 text-emerald-400" /> Device aware</span>
-          <span className="flex items-center gap-1.5"><Layers className="h-3.5 w-3.5 text-emerald-400" /> Aether Pretty UI</span>
+          <span className="flex items-center gap-1.5"><Layers className="h-3.5 w-3.5 text-emerald-400" /> DigOS Pretty UI</span>
         </div>
         <div className="mt-2 text-[13px] font-medium text-emerald-400">
           Created &amp; built by George Lamptey — Gasby
         </div>
-        <div className="text-[11.5px] text-zinc-600">Aether OS Lite 1.5 “Pretty UI” · {new Date().getFullYear()}</div>
+        <div className="text-[11.5px] text-zinc-600">DigOS Lite 1.5 “Pretty UI” · {new Date().getFullYear()}</div>
       </div>
     </footer>
   )
@@ -978,11 +986,11 @@ export default function App() {
       <Engine />
       <Showcase
         id="ui"
-        eyebrow="Aether Pretty UI"
+        eyebrow="DigOS Pretty UI"
         title={<>macOS poise. iOS clarity. <span className="gradient-text">Ubuntu soul.</span></>}
         copy="A window manager with edge-snapping and keyboard tiling, Spotlight search, an Alt+Tab task switcher, Launchpad, Control Center and a dock — fused into one calm, glassy interface that runs at 60 fps on old hardware."
         img="./shots/m_split.png"
-        alt="Split-screen windows in Aether OS Lite"
+        alt="Split-screen windows in DigOS Lite"
         bullets={[
           'Drag to edges or Ctrl+Alt+arrows to tile',
           'Ctrl+K Spotlight over apps, files, notes and the web',
@@ -994,7 +1002,7 @@ export default function App() {
         title={<>Every app you <span className="gradient-text">already use.</span></>}
         copy="Modern software is web apps. The App Store connects them — YouTube, Notion, Figma, GitHub, ChatGPT and more install like native apps, and any URL becomes an app with the custom installer. Chrome Web Store extensions ride along in the engine."
         img="./shots/m_browser.png"
-        alt="Aether Web — the browser inside Aether OS Lite"
+        alt="DigOS Web — the browser inside DigOS Lite"
         flip
         bullets={[
           'Web apps open in real engine tabs, sessions persist',
