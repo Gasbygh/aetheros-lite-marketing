@@ -14,6 +14,9 @@
     "framer-motion": "^12.42.2",
     "lucide-react": "^0.562.0"
   },
+  "overrides": {
+    "browserslist": "^4.28.7"
+  },
   "devDependencies": {
     "vite": "^7.2.4",
     "@vitejs/plugin-react": "^5.1.1",
